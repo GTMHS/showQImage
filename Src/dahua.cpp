@@ -87,10 +87,10 @@ bool CammerWidget::ShowImage(uint8_t* pRgbFrameBuf, int pRgbFrameBufSize, int nW
 			if (!bookdetection(out))//识别判断
 			{
 				//QMessageBox::information(NULL, "Wrong", "Book order is wrong!");
-				ui->textEdit->append("Wrong");
+				//ui->textEdit->append("Wrong");
 			}
 			else {
-				ui->textEdit->setText("Correct!");
+				//ui->textEdit->setText("Correct!");
 			}
 		}
 		catch (const std::exception& e)
@@ -251,7 +251,7 @@ bool CammerWidget::bookdetection(Mat imagefile) {
 	//		}
 	//	}			
 	//}
-	ui->textEdit->append("this_block_nums is " + boxes.size());
+	//ui->textEdit->append("this_block_nums is " + boxes.size());
 	switch (this_block_nums)
 	{
 	case 11:

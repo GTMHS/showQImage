@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>618</width>
-    <height>850</height>
+    <height>663</height>
    </rect>
   </property>
   <property name="font">
@@ -20,7 +20,7 @@
   <property name="windowTitle">
    <string>CammerWidget</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="4,2,1,0">
    <item>
     <widget class="QLabel" name="label">
      <property name="minimumSize">
@@ -31,8 +31,8 @@
      </property>
      <property name="maximumSize">
       <size>
-       <width>600</width>
-       <height>400</height>
+       <width>2048</width>
+       <height>1920</height>
       </size>
      </property>
      <property name="text">
@@ -66,8 +66,8 @@
      </property>
      <property name="maximumSize">
       <size>
-       <width>600</width>
-       <height>200</height>
+       <width>2048</width>
+       <height>1920</height>
       </size>
      </property>
      <property name="text">
@@ -82,19 +82,6 @@
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>TextLabel</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTextEdit" name="textEdit">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
    </item>

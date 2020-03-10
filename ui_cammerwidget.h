@@ -16,7 +16,6 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -30,13 +29,12 @@ public:
     QFrame *line;
     QLabel *label_2;
     QLabel *label_3;
-    QTextEdit *textEdit;
 
     void setupUi(QWidget *CammerWidget)
     {
         if (CammerWidget->objectName().isEmpty())
             CammerWidget->setObjectName(QStringLiteral("CammerWidget"));
-        CammerWidget->resize(618, 850);
+        CammerWidget->resize(618, 663);
         QFont font;
         font.setPointSize(18);
         font.setBold(true);
@@ -49,7 +47,7 @@ public:
         label = new QLabel(CammerWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setMinimumSize(QSize(600, 400));
-        label->setMaximumSize(QSize(600, 400));
+        label->setMaximumSize(QSize(2048, 1920));
         label->setScaledContents(true);
 
         verticalLayout->addWidget(label);
@@ -66,7 +64,7 @@ public:
         label_2 = new QLabel(CammerWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setMinimumSize(QSize(600, 200));
-        label_2->setMaximumSize(QSize(600, 200));
+        label_2->setMaximumSize(QSize(2048, 1920));
         label_2->setScaledContents(true);
 
         verticalLayout->addWidget(label_2);
@@ -76,14 +74,9 @@ public:
 
         verticalLayout->addWidget(label_3);
 
-        textEdit = new QTextEdit(CammerWidget);
-        textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setEnabled(true);
-        textEdit->setAutoFillBackground(false);
-        textEdit->setReadOnly(true);
-
-        verticalLayout->addWidget(textEdit);
-
+        verticalLayout->setStretch(0, 4);
+        verticalLayout->setStretch(1, 2);
+        verticalLayout->setStretch(2, 1);
 
         retranslateUi(CammerWidget);
 
