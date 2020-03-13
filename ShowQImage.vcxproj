@@ -14,7 +14,7 @@
     <ProjectGuid>{FFAA3287-6985-3FAF-B612-50179EFCA90B}</ProjectGuid>
     <RootNamespace>ShowQImage</RootNamespace>
     <Keyword>QtVS_v302</Keyword>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -77,6 +77,10 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ShowQImage_d</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\Program Files\opencv3.4.6\opencv\build\include;D:\Program Files\opencv3.4.6\opencv\build\include\opencv;D:\Program Files\opencv3.4.6\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program Files\opencv3.4.6\opencv\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;Include;$(QTDIR)\include;release;\include;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -98,7 +102,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Depends\x64\vs2013shared\MVSDKmd.lib;Depends\x64\vs2013shared\VideoRender.lib;Depends\x64\vs2013shared\ImageConvert.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Depends\x64\vs2013shared\MVSDKmd.lib;Depends\x64\vs2013shared\VideoRender.lib;Depends\x64\vs2013shared\ImageConvert.lib;opencv_world346.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>Depends\x64\vs2013shared;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -195,11 +199,8 @@
     <QtMoc Include="Src\Dahua.h">
     </QtMoc>
     <ClInclude Include="Src\MessageQue.h" />
-    <ClInclude Include="Src\dfindbook.h" />
     <QtMoc Include="Src\form.h">
     </QtMoc>
-    <ClInclude Include="Src\myexception.h" />
-    <ClInclude Include="Src\myserialport.h" />
     <ClInclude Include="Src\readconf.h" />
   </ItemGroup>
   <ItemGroup>

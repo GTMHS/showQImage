@@ -54,18 +54,9 @@
     <ClInclude Include="Src\MessageQue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\dfindbook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <QtMoc Include="Src\form.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClInclude Include="Src\myexception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\myserialport.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\readconf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
