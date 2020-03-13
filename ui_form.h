@@ -60,11 +60,8 @@ public:
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         widget = new CammerWidget(Form);
         widget->setObjectName(QStringLiteral("widget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy);
         widget->setMinimumSize(QSize(600, 650));
         widget->setMaximumSize(QSize(1920, 1080));
 
@@ -79,7 +76,7 @@ public:
 
         pushButton_2 = new QPushButton(Form);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setMaximumSize(QSize(100, 20));
+        pushButton_2->setMaximumSize(QSize(16777215, 16777215));
 
         gridLayout->addWidget(pushButton_2, 0, 1, 1, 1);
 
@@ -90,7 +87,7 @@ public:
 
         pushButton = new QPushButton(Form);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMaximumSize(QSize(100, 20));
+        pushButton->setMaximumSize(QSize(16777215, 16777215));
 
         gridLayout->addWidget(pushButton, 0, 0, 1, 1);
 
@@ -119,6 +116,8 @@ public:
 
         lcdNumber = new QLCDNumber(Form);
         lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
+        sizePolicy.setHeightForWidth(lcdNumber->sizePolicy().hasHeightForWidth());
+        lcdNumber->setSizePolicy(sizePolicy);
 
         gridLayout->addWidget(lcdNumber, 5, 1, 1, 1);
 
