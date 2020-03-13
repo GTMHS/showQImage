@@ -24,6 +24,8 @@ CammerWidget::CammerWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 	m_hWnd = (VR_HWND)this->winId();  
+	//pui = new CammerWidget();
+	//connect(pui, SIGNAL(SendUpdateLCDMsg(int)), this, SLOT(UpdateLCD()));
 
 	// 默认显示30帧
 	setDisplayFPS(30);
@@ -103,11 +105,75 @@ bool CammerWidget::ShowImage(uint8_t* pRgbFrameBuf, int pRgbFrameBufSize, int nW
 }
 
 bool sortFun(Rect p1, Rect p2);
+
+void CammerWidget::testRun() {
+	clock_t startTime, startTime1, endTime;
+	startTime = clock();
+	stringstream ss;
+	string imagefile = "G:\\Pic\\Pic (";
+	try
+	{
+		string outfile;
+		Mat image_for_write;
+		for (int i = 1; i < 5; i++) {
+			startTime1 = clock();
+			ss << imagefile << i << ").bmp";
+			string infile = ss.str();
+			QString infile2 = QString::fromStdString(infile);
+			ui->label_3->setText(infile2);
+			QString filename(infile2);
+			QImage* img = new QImage;
+			if (!(img->load(infile2))) //加载图像
+			{
+				QMessageBox::information(this,
+					tr("OPEN FAILED"),
+					tr("OPEN FAILED!"));
+				delete img;
+				return;
+			}
+			ui->label->setPixmap(QPixmap::fromImage(*img));			
+			cout << infile << endl;
+			image_for_write = imread(infile);
+			Rect rect = Rect(125, 1309, 2837, 517);
+			image_for_write = image_for_write(rect);
+			QImage Img;
+			cv::Mat Rgb;
+			if (image_for_write.channels() == 3)//RGB Img
+			{
+				cv::cvtColor(image_for_write, Rgb, CV_BGR2RGB);//颜色空间转换
+				Img = QImage((const uchar*)(Rgb.data), Rgb.cols, Rgb.rows, Rgb.cols * Rgb.channels(), QImage::Format_RGB888);
+			}
+			else//Gray Img
+			{
+				Img = QImage((const uchar*)(image_for_write.data), image_for_write.cols, image_for_write.rows, image_for_write.cols*image_for_write.channels(), QImage::Format_Indexed8);
+			}
+			ui->label_2->setPixmap(QPixmap::fromImage(Img));
+			//ui->label_2->setPixmap(qimg);
+			bookdetection(image_for_write);
+			endTime = clock();
+			//ui->label_3->setText("");
+			string s = "The run time is: " + to_string((double)(endTime - startTime1) / CLOCKS_PER_SEC) + "s";
+			QString st = QString::fromStdString(s);
+			//ui->label_3->setText(st);
+			cout << "The run time is: " << (double)(endTime - startTime1) / CLOCKS_PER_SEC << "s" << endl << endl;
+			ss.str("");
+			waitKey(2000);
+		}
+	}
+	catch (const std::exception& e)
+	{
+		cout << e.what() << endl;
+		throw;
+	}
+	endTime = clock();
+	cout << "The run time is: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl << endl;
+}
+
 bool CammerWidget::bookdetection(Mat imagefile) {
 	//outfile = "F:\\图书\\20191214\\20191217\\" + get_datetime() + ".bmp";
 	string outfile = "E:\\pic\\label\\" + get_datetime() + ".bmp";
 	String modelConfiguration = "D:/yolov3.cfg";
-	/*String model_label_Weights = "D:/yolov3-voc_last1024.weights";*/
+	//String model_label_Weights = "D:/yolov3-voc_last1024.weights";
 	String model_label_Weights = "D:/yolov3-voc_9000.weights";
 
 	vector<Rect> boxes = detect_image(imagefile, model_label_Weights, modelConfiguration);
@@ -256,32 +322,44 @@ bool CammerWidget::bookdetection(Mat imagefile) {
 	{
 	case 11:
 		cout << "黑色标志点数量正确" << endl;
-		imwrite(outfile, imagefile);
-		cout << "文件写入：" + outfile << endl;
+		ui->label_3->setText("Correct");
+		//imwrite(outfile, imagefile);
+		//cout << "文件写入：" + outfile << endl;
+		run_database(get_datetime(), "正常");
+		emit SendUpdateLCDMsg(1);
 		return LinearFitting(points, -0.34, 0, 0.98);
 	case 12:
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED);
 		cout << "黑色标志点数为12" << endl;
 		outfile = "E:\\pic\\label\\12-" + get_datetime() + ".bmp";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		imwrite(outfile, imagefile);
-		cout << "文件写入：" + outfile << endl;
+		//imwrite(outfile, imagefile);
+		//cout << "文件写入：" + outfile << endl;
+		ui->label_3->setText("12");
+		run_database(get_datetime(), "正常");
+		emit SendUpdateLCDMsg(1);
 		return LinearFitting(points, -0.34, 0, 0.98);
 	case 10:
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED);
 		cout << "黑色标志点数为10" << endl;
+		ui->label_3->setText("10");
 		outfile = "E:\\pic\\label\\少" + get_datetime() + ".bmp";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		imwrite(outfile, imagefile);
-		cout << "文件写入：" + outfile << endl;
+		//imwrite(outfile, imagefile);
+		//cout << "文件写入：" + outfile << endl;
+		run_database(get_datetime(), "异常");
+		emit SendUpdateLCDMsg(2);
 		return LinearFitting(points, -0.34, 0, 0.98) && 0;
 	default:
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
 		cout << "黑色标志数量错误：  " << this_block_nums << endl;
+		ui->label_3->setText("Wrong");
 		outfile = "E:\\pic\\label\\有误" + get_datetime() + ".bmp";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		imwrite(outfile, imagefile);
-		cout << "文件写入：" + outfile << endl;
+		//imwrite(outfile, imagefile);
+		//cout << "文件写入：" + outfile << endl;
+		run_database(get_datetime(), "异常");
+		emit SendUpdateLCDMsg(2);
 		return 0;
 	}
 
@@ -608,10 +686,58 @@ vector<String> CammerWidget::getOutputsNames(const Net& net)
 	return names;
 }
 
+void CammerWidget::setLabelText(QString s) {
+	ui->label_3->setText(s);
+}
 
+wstring CammerWidget::string2tchar(const string& s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+}
+
+void CammerWidget::run_exe(string path, string params)
+{
+	std::wstring t_path = string2tchar(path);
+	std::wstring t_params = string2tchar(params);
+
+	SHELLEXECUTEINFO ShellInfo;
+
+	memset(&ShellInfo, 0, sizeof(ShellInfo));
+
+	ShellInfo.cbSize = sizeof(ShellInfo);
+
+	ShellInfo.hwnd = NULL;
+
+	ShellInfo.lpVerb = _T("open");
+
+	ShellInfo.lpFile = t_path.c_str();
+	ShellInfo.lpParameters = t_params.c_str();
+
+	ShellInfo.nShow = SW_SHOWNORMAL;
+
+	ShellInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+
+	BOOL bResult = ShellExecuteEx(&ShellInfo);
+}
+
+void CammerWidget::run_database(string time, string result)
+{
+	// database.exe 2016-01-22 08:45:50 异常
+	string filename = "database.exe";
+	//string params = "2016-01-22 08:45:50 异常"
+	std::stringstream ss;
+	ss << " \"" << time << "\" \"" << result << "\"";
+	std::string params = ss.str();
+	run_exe(filename, params);
+}
 /*******************************************************以上部分为添加部分***************************************************/
-
-
 //回调函数
 void CammerWidget::DahuaCallback(const CFrame& frame)
 {

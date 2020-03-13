@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMessageBox>
 
+
 namespace Ui {
 class Form;
 }
@@ -16,6 +17,9 @@ public:
     explicit Form(QWidget *parent = 0);
     ~Form();
 
+private:
+	Ui::Form *ui;
+
 private slots:
     void on_pushButton_clicked();
 
@@ -27,8 +31,30 @@ private slots:
 
     void on_pushButton_4_clicked();
 
-private:
-    Ui::Form *ui;
+	void UpdateLCD(int LCDNUm);
+
+
+
+	////A.h
+	//class A
+	//{
+	//	....
+	//private:
+	//	B *b;
+	//	private slots:
+	//	void fromB([ParamList]);
+	//}
+
+	////A.cpp
+	//A::A()
+	//{
+	//	b = new A;
+	//	connect(b, SIGNAL(toA([ParamList])), this, SLOT(fromB([ParamList])));
+	//}
+	//void A::fromB([ParamList])
+	//{
+	//	//get[ParamList]
+	//}
 };
 
 #endif // FORM_H

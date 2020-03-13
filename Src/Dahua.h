@@ -13,7 +13,10 @@
 #include <opencv2\imgproc.hpp>
 #include <opencv2\dnn.hpp>
 #include <string>
-
+#include <time.h>
+#include <Windows.h>
+#include <ShellAPI.h>
+#include <tchar.h>
 
 using namespace cv;
 using namespace dnn;
@@ -101,7 +104,11 @@ public:
 
 	//图书检测
 	bool bookdetection(Mat image_in);
+	void setLabelText(QString s);
+	void testRun();
 
+signals:    //添加自定义的信号，信号强制为公有类型，所以没有前缀
+	void SendUpdateLCDMsg(int LCDNumBer);  //信号只需要声明，不要给信号写实体代码
 	//-------------------------------------------以上部分为新加内容---------------------------------------------
 
 private:
@@ -177,14 +184,24 @@ private:
 	vector<Rect> detect_image(Mat frame, string modelWeights, string modelConfiguration);
 	vector<String> getOutputsNames(const Net& net);
 	vector<Rect> postprocess_return(Mat& frame, const vector<Mat>& out);
-
-
-
-
+	wstring string2tchar(const string& s);
+	void run_exe(string path, string params);
+	void run_database(string time, string result);
 
 	VR_HWND		m_hWnd;
 };
-
-
-
 #endif // DAHUA_H
+
+////B.h
+//class B
+//{
+//	......
+//		signals:
+//	void toA([ParamList]);
+//}
+//
+////B.cpp
+//B::B()
+//{
+//	emit toA([ParamList]);
+//}

@@ -12,6 +12,11 @@ Form::Form(QWidget *parent) :
 	ui->pushButton_2->setEnabled(false);
 	ui->pushButton_3->setEnabled(false);
 	ui->pushButton_4->setEnabled(false);
+
+	//CammerWidget *subui;
+	//subui = new Form();
+	//connect(subui, SIGNAL(SendUpdateLCDMsg(int)), this, SLOT(UpdateLCD()));
+	connect(ui->widget, SIGNAL(SendUpdateLCDMsg(int)), this, SLOT(UpdateLCD(int)));
 }
 
 Form::~Form()
@@ -21,59 +26,61 @@ Form::~Form()
 
 void Form::on_pushButton_clicked()
 {
-	ICameraPtr cameraSptr;
-	//发现设备
-	CSystem &systemObj = CSystem::getInstance();
-	TVector<ICameraPtr> vCameraPtrList;
-	bool bRet = systemObj.discovery(vCameraPtrList);
-
-	if (!bRet)
-	{
-		QMessageBox::warning(NULL, "warning", "发现设备失败\n", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-		return;
-	}
-
-	if (0 == vCameraPtrList.size())
-	{
-        QMessageBox::warning(NULL, "warning", "发现摄像头失败\n");
-		return;
-	}
-
+//	ICameraPtr cameraSptr;
+//	//发现设备
+//	CSystem &systemObj = CSystem::getInstance();
+//	TVector<ICameraPtr> vCameraPtrList;
+//	bool bRet = systemObj.discovery(vCameraPtrList);
+//
+//	if (!bRet)
+//	{
+//		QMessageBox::warning(NULL, "warning", "发现设备失败\n", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+//		return;
+//	}
+//
+//	if (0 == vCameraPtrList.size())
+//	{
+//        QMessageBox::warning(NULL, "warning", "发现摄像头失败\n");
+//		return;
+//	}
+//
     ui->pushButton->setEnabled(false);
     ui->pushButton_2->setEnabled(true);
     ui->pushButton_3->setEnabled(true);
-
-    try {
-        ui->widget->CameraCheck();
-
-        bool camera_open = ui->widget->CameraOpen();
-//        if(!camera_open)
-//        {
-//            QMessageBox::warning(NULL, "warning", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-//        }
-        ui->widget->CameraStart();
-
-        // 设置曝光
-        ui->widget->SetExposeTime(10000);
-
-        // 设置增益
-        ui->widget->SetAdjustPlus(5);
-
-        // 设置连续拉流。
-        ui->widget->CameraChangeTrig(CammerWidget::trigContinous);
-
-        //// 设置软触发拉流
-        //ui->widget->CameraChangeTrig(CammerWidget::trigSoftware);
-		//// 设置硬件触发拉流
-		//ui->widget->CameraChangeTrig(CammerWidget::trigLine);
-        //// 软触发100次
-        //for (int i = 0; i<100; i++)
-        //{
-        //	ui->widget->ExecuteSoftTrig();
-        //}
-    } catch (Exception e) {
-        QMessageBox::warning(NULL, "warning in open camera", e.what(), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-    }
+	ui->widget->setLabelText("test");
+	ui->widget->testRun();
+//
+//    try {
+//        ui->widget->CameraCheck();
+//
+//        bool camera_open = ui->widget->CameraOpen();
+////        if(!camera_open)
+////        {
+////            QMessageBox::warning(NULL, "warning", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+////        }
+//        ui->widget->CameraStart();
+//
+//        // 设置曝光
+//        ui->widget->SetExposeTime(10000);
+//
+//        // 设置增益
+//        ui->widget->SetAdjustPlus(5);
+//
+//        // 设置连续拉流。
+//        ui->widget->CameraChangeTrig(CammerWidget::trigContinous);
+//
+//        //// 设置软触发拉流
+//        //ui->widget->CameraChangeTrig(CammerWidget::trigSoftware);
+//		//// 设置硬件触发拉流
+//		//ui->widget->CameraChangeTrig(CammerWidget::trigLine);
+//        //// 软触发100次
+//        //for (int i = 0; i<100; i++)
+//        //{
+//        //	ui->widget->ExecuteSoftTrig();
+//        //}
+//    } catch (Exception e) {
+//        QMessageBox::warning(NULL, "warning in open camera", e.what(), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+//    }	
 }
 
 void Form::on_pushButton_2_clicked()
@@ -115,3 +122,31 @@ void Form::closeEvent(QCloseEvent * event)
 
 	ui->widget->CameraClose();
 }
+
+void Form::UpdateLCD(int LCDNum) {	
+	//ui->lcdNumber->setDigitCount(10);
+	//ui->lcdNumber_2->setDigitCount(50);
+	//ui->lcdNumber_3->setDigitCount(60);
+	ui->lcdNumber->display(20);
+	ui->lcdNumber_2->display(50);
+	ui->lcdNumber_3->display(60);
+	//if (LCDNum == 1) {
+	//	ui->lcdNumber_2->setDigitCount(50);
+	//	ui->lcdNumber_3->setDigitCount(0);
+	//}
+	//else {
+	//	ui->lcdNumber_2->setDigitCount(0);
+	//	ui->lcdNumber_3->setDigitCount(50);
+	//}
+}
+
+////A.cpp
+//A::A()
+//{
+//	b = new A;
+//	connect(b, SIGNAL(toA([ParamList])), this, SLOT(fromB([ParamList])));
+//}
+//void A::fromB([ParamList])
+//{
+//	//get[ParamList]
+//}
