@@ -3,7 +3,7 @@
 //#include "dfindbook.h"
 
 Form::Form(QWidget *parent) :
-    QWidget(parent),
+	QWidget(parent),
     ui(new Ui::Form)
 {
     ui->setupUi(this);
@@ -26,61 +26,61 @@ Form::~Form()
 
 void Form::on_pushButton_clicked()
 {
-//	ICameraPtr cameraSptr;
-//	//发现设备
-//	CSystem &systemObj = CSystem::getInstance();
-//	TVector<ICameraPtr> vCameraPtrList;
-//	bool bRet = systemObj.discovery(vCameraPtrList);
-//
-//	if (!bRet)
-//	{
-//		QMessageBox::warning(NULL, "warning", "发现设备失败\n", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-//		return;
-//	}
-//
-//	if (0 == vCameraPtrList.size())
-//	{
-//        QMessageBox::warning(NULL, "warning", "发现摄像头失败\n");
-//		return;
-//	}
-//
+////	ICameraPtr cameraSptr;
+////	//发现设备
+////	CSystem &systemObj = CSystem::getInstance();
+////	TVector<ICameraPtr> vCameraPtrList;
+////	bool bRet = systemObj.discovery(vCameraPtrList);
+////
+////	if (!bRet)
+////	{
+////		QMessageBox::warning(NULL, "warning", "发现设备失败\n", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+////		return;
+////	}
+////
+////	if (0 == vCameraPtrList.size())
+////	{
+////        QMessageBox::warning(NULL, "warning", "发现摄像头失败\n");
+////		return;
+////	}
+////
     ui->pushButton->setEnabled(false);
     ui->pushButton_2->setEnabled(true);
     ui->pushButton_3->setEnabled(true);
 	ui->widget->setLabelText("test");
 	ui->widget->testRun();
-//
-//    try {
-//        ui->widget->CameraCheck();
-//
-//        bool camera_open = ui->widget->CameraOpen();
-////        if(!camera_open)
-////        {
-////            QMessageBox::warning(NULL, "warning", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-////        }
-//        ui->widget->CameraStart();
-//
-//        // 设置曝光
-//        ui->widget->SetExposeTime(10000);
-//
-//        // 设置增益
-//        ui->widget->SetAdjustPlus(5);
-//
-//        // 设置连续拉流。
-//        ui->widget->CameraChangeTrig(CammerWidget::trigContinous);
-//
-//        //// 设置软触发拉流
-//        //ui->widget->CameraChangeTrig(CammerWidget::trigSoftware);
-//		//// 设置硬件触发拉流
-//		//ui->widget->CameraChangeTrig(CammerWidget::trigLine);
-//        //// 软触发100次
-//        //for (int i = 0; i<100; i++)
-//        //{
-//        //	ui->widget->ExecuteSoftTrig();
-//        //}
-//    } catch (Exception e) {
-//        QMessageBox::warning(NULL, "warning in open camera", e.what(), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-//    }	
+
+    try {
+        ui->widget->CameraCheck();
+
+        bool camera_open = ui->widget->CameraOpen();
+//        if(!camera_open)
+//        {
+//            QMessageBox::warning(NULL, "warning", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+//        }
+        ui->widget->CameraStart();
+
+        // 设置曝光
+        ui->widget->SetExposeTime(10000);
+
+        // 设置增益
+        ui->widget->SetAdjustPlus(5);
+
+        // 设置连续拉流。
+        ui->widget->CameraChangeTrig(CammerWidget::trigContinous);
+
+        //// 设置软触发拉流
+        //ui->widget->CameraChangeTrig(CammerWidget::trigSoftware);
+		//// 设置硬件触发拉流
+		//ui->widget->CameraChangeTrig(CammerWidget::trigLine);
+        //// 软触发100次
+        //for (int i = 0; i<100; i++)
+        //{
+        //	ui->widget->ExecuteSoftTrig();
+        //}
+    } catch (Exception e) {
+        QMessageBox::warning(NULL, "warning in open camera", e.what(), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    }	
 }
 
 void Form::on_pushButton_2_clicked()
