@@ -58,6 +58,7 @@ public:
         Form->setMaximumSize(QSize(1920, 1080));
         gridLayout_2 = new QGridLayout(Form);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         widget = new CammerWidget(Form);
         widget->setObjectName(QStringLiteral("widget"));
         sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
