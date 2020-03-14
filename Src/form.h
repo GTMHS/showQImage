@@ -2,6 +2,7 @@
 #define FORM_H
 
 #include <QWidget>
+#include <qmainwindow.h>
 #include <QMessageBox>
 #include <iostream>
 #include <windows.h>
