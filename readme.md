@@ -36,17 +36,17 @@
 ```
 5. 接口使用时需要注意顺序。
 
-（1） 先发现相机（CameraCheck），再连接相机（CameraOpen），连接相机以后才可以修改曝光和增益、改变触发方式。
-（2） 开始采集（CameraStart）以后才可以显示图像，否则缓存队列为空。
+	（1） 先发现相机（CameraCheck），再连接相机（CameraOpen），连接相机以后才可以修改曝光和增益、改变触发方式。
+	（2） 开始采集（CameraStart）以后才可以显示图像，否则缓存队列为空。
 
 6. 注意事项。
 
-（1） 默认连接的是发现列表中的第一个相机。
-（2） ShowImage接口没有获取图像功能（图像在回调函数中获取），只做显示用，需要给它传入一个指针pRgbFrameBuf，该指针指向要显示的图像数据。
-（3)  目前工程只支持Mono8和RGB24图像数据转化成QImage，
-      Mono8不需要转码可以直接生成QImage,其余格式通过ImageConvert库先转换成RGB24再生成QImage
- (4)  Sample中通过QLabel显示图像，QLabel只支持QPixmap。所以先将QImage转换为QPixmap，转换会造成图像显示延迟。
- (5)  如何生成QImage请参照dahua.cpp中的ShowImage函数， 非mono8格式转码为RGB24请参照dahua.cpp中的DisplayThreadProc函数
+	（1）默认连接的是发现列表中的第一个相机。
+	（2）ShowImage接口没有获取图像功能（图像在回调函数中获取），只做显示用，需要给它传入一个指针pRgbFrameBuf，该指针指向要显示的图像数据。
+	（3) 目前工程只支持Mono8和RGB24图像数据转化成QImage，
+     Mono8不需要转码可以直接生成QImage,其余格式通过ImageConvert库先转换成RGB24再生成QImage
+	(4) Sample中通过QLabel显示图像，QLabel只支持QPixmap。所以先将QImage转换为QPixmap，转换会造成图像显示延迟。
+	(5) 如何生成QImage请参照dahua.cpp中的ShowImage函数， 非mono8格式转码为RGB24请参照dahua.cpp中的DisplayThreadProc函数
 
 <center> - END - </center>
 
