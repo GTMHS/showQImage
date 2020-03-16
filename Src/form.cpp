@@ -26,24 +26,24 @@ Form::~Form()
 
 void Form::on_pushButton_clicked()
 {
-////	ICameraPtr cameraSptr;
-////	//发现设备
-////	CSystem &systemObj = CSystem::getInstance();
-////	TVector<ICameraPtr> vCameraPtrList;
-////	bool bRet = systemObj.discovery(vCameraPtrList);
-////
-////	if (!bRet)
-////	{
-////		QMessageBox::warning(NULL, "warning", "发现设备失败\n", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-////		return;
-////	}
-////
-////	if (0 == vCameraPtrList.size())
-////	{
-////        QMessageBox::warning(NULL, "warning", "发现摄像头失败\n");
-////		return;
-////	}
-////
+	ICameraPtr cameraSptr;
+	//发现设备
+	CSystem &systemObj = CSystem::getInstance();
+	TVector<ICameraPtr> vCameraPtrList;
+	bool bRet = systemObj.discovery(vCameraPtrList);
+
+	if (!bRet)
+	{
+		QMessageBox::warning(NULL, "warning", "发现设备失败\n", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+		return;
+	}
+
+	if (0 == vCameraPtrList.size())
+	{
+        QMessageBox::warning(NULL, "warning", "发现摄像头失败\n");
+		return;
+	}
+
     ui->pushButton->setEnabled(false);
     ui->pushButton_2->setEnabled(true);
     ui->pushButton_3->setEnabled(true);
