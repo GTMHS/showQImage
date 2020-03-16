@@ -91,6 +91,65 @@ void Form::on_pushButton_2_clicked()
 	ui->pushButton_2->setEnabled(false);
 	ui->pushButton_3->setEnabled(false);
 	ui->pushButton_4->setEnabled(false);
+	//https://blog.csdn.net/tom555cat/article/details/17389247
+	string dirpath = "G:\\Pic\\";
+
+	_finddata_t file;
+	long lf;
+	char suffixs[] = "*.bmp";          //要寻找的文件类型
+	vector<string> fileNameList;   //文件夹下.amc类型文件的名字向量
+	char *p;
+	p = (char *)malloc((dirpath.size() + 1) * sizeof(char));
+	strcpy(p, dirpath.c_str());
+
+	//获取文件名向量
+	if ((lf = _findfirst(strcat(p, suffixs), &file)) == -1l)
+	{
+		cout << "文件没有找到!\n";
+	}
+	else
+	{
+		cout << "\n文件列表:\n";
+		do {
+			cout << file.name << endl;
+			ui->plainTextEdit->appendPlainText(file.name);
+			//str是用来保存文件名的字符串string
+			string str(file.name);
+			fileNameList.push_back(str);
+			cout << endl;
+		} while (_findnext(lf, &file) == 0);
+	}
+	_findclose(lf);
+
+	//遍历文件名向量，并进行修改
+	string strAdd = "_walk.amc";   //在原文件名的基础上要增加的部分
+	for (vector<string>::iterator iter = fileNameList.begin(); iter != fileNameList.end(); ++iter)
+	{
+		string oldName = dirpath + *iter;
+		//str1为原文件名要保留的部分
+		string str1;
+		str1 = (*iter).substr(0, 3);
+		string newName = dirpath + str1 + strAdd;
+		cout << "oldName:" << oldName << endl;
+		cout << "newName" << newName << endl;
+
+		cout << "oldName size = " << oldName.size() << endl;
+		cout << "newName size = " << newName.size() << endl;
+
+		char *oldNamePointer, *newNamePointer;
+		oldNamePointer = (char *)malloc((oldName.size() + 1) * sizeof(char));
+		newNamePointer = (char *)malloc((newName.size() + 1) * sizeof(char));
+		strcpy(oldNamePointer, oldName.c_str());
+		strcpy(newNamePointer, newName.c_str());
+		cout << oldNamePointer << endl;
+		cout << newNamePointer << endl;
+
+		rename(oldNamePointer, newNamePointer);
+
+		free(oldNamePointer);
+		free(newNamePointer);
+	}
+	//system("PAUSE");
 }
 
 void Form::on_pushButton_3_clicked()//开始识别
@@ -149,4 +208,63 @@ void Form::UpdateLCD(int LCDNum) {
 //void A::fromB([ParamList])
 //{
 //	//get[ParamList]
+//}
+
+//int find_all_files(const char * lpPath)
+//{
+//	char szFind[MAX_PATH];
+//	WIN32_FIND_DATA FindFileData;
+//	strcpy(szFind, lpPath);
+//	strcat(szFind, "\\*.*");
+//
+//	cout << szFind << endl;
+//
+//	HANDLE hFind = ::FindFirstFile(szFind, &FindFileData);
+//	if (INVALID_HANDLE_VALUE == hFind)
+//		return -1;
+//
+//	do
+//	{
+//		if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+//		{
+//			if (strcmp(FindFileData.cFileName, ".") != 0 && strcmp(FindFileData.cFileName, "..") != 0)
+//			{
+//				//发现子目录，递归之
+//				char szFile[MAX_PATH] = { 0 };
+//				strcpy(szFile, lpPath);
+//				strcat(szFile, "\\");
+//				strcat(szFile, FindFileData.cFileName);
+//				find_all_files(szFile);
+//			}
+//		}
+//		else
+//		{
+//			//找到文件，处理之
+//			cout << lpPath << "\\" << FindFileData.cFileName << endl;
+//
+//			string temporaryName = FindFileData.cFileName;
+//
+//			string oldName(lpPath);
+//			oldName += "\\";
+//			oldName += temporaryName;
+//			string newName = oldName + ".png";
+//			//cout<<"newName:"<<newName<<endl;
+//			//FindFileData.cFileName = temporaryName;
+//			if (rename(oldName.c_str(), newName.c_str()) == 0)
+//
+//				//printf("Renamed %s to %s.\n", oldName, newName);
+//				cout << oldName + "->" + newName + "\n";
+//
+//			else
+//
+//				perror("rename");
+//
+//			//cout<<"new:"<<FindFileData.cFileName<<endl;
+//
+//		}
+//	} while (::FindNextFile(hFind, &FindFileData));
+//
+//	::FindClose(hFind);
+//
+//	return 0;
 //}

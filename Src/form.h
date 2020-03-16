@@ -4,7 +4,14 @@
 #include <QWidget>
 #include <qmainwindow.h>
 #include <QMessageBox>
-
+#include <iostream>
+#include <windows.h>
+#include <stdio.h>
+#include <string>
+#include <io.h>
+#include <stdlib.h>
+#include <vector>
+using namespace std;
 
 namespace Ui {
 class Form;
